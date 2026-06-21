@@ -1,0 +1,99 @@
+/* starfield.css - 记忆星系 */
+
+        .starfield {
+            position: fixed;
+            top: -10%; left: -10%;
+            width: 120%; height: 120%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+            transform: translate3d(0,0,0);
+            transition: transform 1.2s cubic-bezier(0.4,0,0.2,1);
+            contain: layout style paint;
+            will-change: transform;
+        }
+
+        .starfield .layer {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+        .starfield .layer-1 { animation: starDrift 140s linear infinite; }
+        .starfield .layer-2 { animation: starDrift 200s linear infinite; }
+        .starfield .layer-3 { animation: starDrift 280s linear infinite; }
+
+        
+
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background: #fff;
+        }
+        .star.twinkle-1 { animation: twinkle1 4s ease-in-out infinite alternate; }
+        .star.twinkle-2 { animation: twinkle2 6s ease-in-out infinite alternate; }
+        .star.twinkle-3 { animation: twinkle3 8s ease-in-out infinite alternate; }
+        
+        
+        
+
+        /* 星云 */
+        .starfield .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.1;
+            animation: nebulaBreath 4s ease-in-out infinite;
+        }
+        
+        .nebula-1 {
+            width: 620px; height: 620px;
+            background: radial-gradient(circle, #6B5B95 0%, transparent 70%);
+            top: 8%; left: -8%;
+            animation: nebulaFloat 70s ease-in-out infinite alternate, nebulaBreath 4s ease-in-out infinite;
+        }
+        .nebula-2 {
+            width: 520px; height: 520px;
+            background: radial-gradient(circle, #4A6FA5 0%, transparent 70%);
+            bottom: 8%; right: -5%;
+            animation: nebulaFloat 90s ease-in-out infinite alternate-reverse, nebulaBreath 4s ease-in-out infinite;
+        }
+        .nebula-3 {
+            width: 420px; height: 420px;
+            background: radial-gradient(circle, #D4A574 0%, transparent 70%);
+            top: 45%; left: 55%;
+            opacity: 0.08;
+            animation: nebulaFloat 80s ease-in-out infinite alternate, nebulaBreath 4s ease-in-out infinite;
+        }
+        
+
+        /* 流星 */
+        .shooting-star {
+            position: absolute;
+            width: 3px; height: 3px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 8px 1px rgba(255,255,255,0.8);
+            opacity: 0;
+        }
+        .shooting-star::after {
+            content: '';
+            position: absolute;
+            top: 1px; left: 1px;
+            width: 90px; height: 1.5px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(232,197,160,0.3), transparent);
+            transform-origin: left center;
+            border-radius: 2px;
+        }
+        .shooting-star.s1 {
+            top: 15%; left: 10%;
+            animation: shoot1 11s linear infinite;
+            animation-delay: 3s;
+        }
+        .shooting-star.s2 {
+            top: 60%; left: 30%;
+            animation: shoot1 14s linear infinite;
+            animation-delay: 8s;
+        }
+        
+
+        /* ===== 页面切换 ===== */

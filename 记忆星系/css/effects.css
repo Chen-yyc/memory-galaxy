@@ -1,0 +1,564 @@
+/* effects.css - 记忆星系 */
+
+        /* ===== AOS 滚动动画主题适配 ===== */
+        [data-aos] { pointer-events: auto; }
+        body[data-aos-easing="galaxy-ease"] [data-aos],
+        [data-aos][data-aos-easing="galaxy-ease"] {
+            transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ===== 按钮涟漪效果 ===== */
+        .ripple-btn { position: relative; overflow: hidden; }
+        .ripple-effect {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.45);
+            transform: scale(0);
+            animation: rippleExpand 0.65s ease-out;
+            pointer-events: none;
+        }
+        
+
+        /* ===== 行星光晕脉冲增强（仅改filter，不干扰transform/animation） ===== */
+        .planet:hover .planet-body {
+            animation: planetGlowPulse 1.8s ease-in-out infinite;
+        }
+        
+
+        /* ===== 卡片3D倾斜悬停（配合Tilt.js） ===== */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: box-shadow 0.4s ease, transform 0.2s ease;
+            will-change: transform;
+        }
+        .tilt-card:hover {
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(232,197,160,0.12);
+        }
+        .tilt-card .tilt-inner {
+            transform: translateZ(40px);
+            transform-style: preserve-3d;
+        }
+        .tilt-card .tilt-icon {
+            transform: translateZ(60px);
+            transform-style: preserve-3d;
+        }
+
+        /* ===== 玻璃卡片悬停浮起 + 光泽扫过 ===== */
+        .glass-card-enhanced,
+        .memorial-detail-card,
+        .quick-action-card,
+        .galaxy-thumb-card,
+        .wish-card,
+        .memorial-list-card {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        box-shadow 0.4s ease,
+                        border-color 0.4s ease;
+        }
+        .glass-card-enhanced::before,
+        .memorial-detail-card::before,
+        .quick-action-card::before,
+        .galaxy-thumb-card::before,
+        .wish-card::before,
+        .memorial-list-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 60%; height: 100%;
+            background: linear-gradient(105deg,
+                transparent 30%,
+                rgba(255,255,255,0.08) 50%,
+                transparent 70%);
+            transition: left 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: none;
+            z-index: 1;
+        }
+        .glass-card-enhanced:hover::before,
+        .memorial-detail-card:hover::before,
+        .quick-action-card:hover::before,
+        .galaxy-thumb-card:hover::before,
+        .wish-card:hover::before,
+        .memorial-list-card:hover::before {
+            left: 150%;
+        }
+        .glass-card-enhanced:hover,
+        .memorial-detail-card:hover,
+        .quick-action-card:hover,
+        .galaxy-thumb-card:hover,
+        .wish-card:hover,
+        .memorial-list-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(232,197,160,0.35);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.35), 0 0 24px rgba(232,197,160,0.1);
+        }
+
+        /* ===== 文字微光闪烁效果 ===== */
+        .text-shimmer {
+            background: linear-gradient(90deg,
+                var(--text-primary) 0%,
+                var(--gold-bright) 25%,
+                var(--text-primary) 50%,
+                var(--gold-bright) 75%,
+                var(--text-primary) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShimmer 4s linear infinite;
+        }
+        
+
+        /* ===== 标题渐入光晕 ===== */
+        .section-header h2,
+        .galaxy-hero-title {
+            transition: text-shadow 0.5s ease;
+        }
+        .section-header h2:hover,
+        .galaxy-hero-title:hover {
+            text-shadow: 0 0 20px rgba(232,197,160,0.4), 0 0 40px rgba(232,197,160,0.2);
+        }
+
+        /* ===== 导航项下划线动画 ===== */
+        .nav-item {
+            position: relative;
+        }
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 4px; left: 50%;
+            width: 0; height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+            border-radius: 2px;
+            transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1), left 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .nav-item:hover::after,
+        .nav-item.active::after {
+            width: 60%; left: 20%;
+        }
+
+        /* ===== 时间线节点脉冲 ===== */
+        .timeline-item,
+        .memory-timeline-item {
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .timeline-item:hover,
+        .memory-timeline-item:hover {
+            transform: scale(1.03) translateX(6px);
+        }
+        .timeline-dot,
+        .memory-timeline-dot {
+            transition: box-shadow 0.4s ease, transform 0.4s ease;
+        }
+        .timeline-item:hover .timeline-dot,
+        .memory-timeline-item:hover .memory-timeline-dot {
+            transform: scale(1.4);
+            box-shadow: 0 0 16px var(--gold-glow), 0 0 30px rgba(232,197,160,0.3);
+        }
+
+        /* ===== 心愿卡片浮动动画 ===== */
+        .wish-card {
+            animation: wishFloat 6s ease-in-out infinite;
+        }
+        .wish-card:nth-child(2n) { animation-delay: 1s; }
+        .wish-card:nth-child(3n) { animation-delay: 2s; }
+        
+        .wish-card:hover { animation-play-state: paused; }
+
+        /* ===== 快捷操作按钮波纹 ===== */
+        .quick-action-btn {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+        }
+        .quick-action-btn:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3), 0 0 16px rgba(232,197,160,0.15);
+        }
+
+        /* ===== 输入框聚焦光晕 ===== */
+        .form-input,
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+        }
+        .form-input:focus,
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: rgba(232,197,160,0.5);
+            box-shadow: 0 0 0 3px rgba(232,197,160,0.12), 0 0 20px rgba(232,197,160,0.08);
+            transform: translateY(-1px);
+        }
+
+        /* ===== 人格标签弹跳 ===== */
+        .personality-tag {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background 0.3s ease;
+        }
+        .personality-tag:hover {
+            transform: scale(1.12) rotate(-2deg);
+            box-shadow: 0 4px 16px rgba(232,197,160,0.2);
+        }
+
+        /* ===== 轨道对话点呼吸光圈 ===== */
+        .orbit-point {
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+        }
+        .orbit-point:hover {
+            transform: scale(1.3);
+            box-shadow: 0 0 20px var(--gold-glow), 0 0 40px rgba(232,197,160,0.2);
+        }
+
+        /* ===== 返回顶部按钮旋转 ===== */
+        .back-to-galaxy {
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .back-to-galaxy:hover {
+            animation: galaxySpin 0.6s ease;
+        }
+        
+
+        /* ===== 渐变边框动画卡片 ===== */
+        .gradient-border-card {
+            position: relative;
+            background: var(--glass-bg);
+            border-radius: 16px;
+        }
+        .gradient-border-card::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg,
+                rgba(232,197,160,0.4),
+                rgba(123,167,217,0.3),
+                rgba(181,154,217,0.3),
+                rgba(125,211,192,0.3),
+                rgba(232,197,160,0.4));
+            background-size: 300% 300%;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: gradientBorderMove 4s ease infinite;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+        .gradient-border-card:hover::after { opacity: 1; }
+
+        /* ===== 星空序言 ===== */
+        .prologue-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(ellipse at center, rgba(5,6,20,0.4) 0%, rgba(5,6,20,0.92) 70%, var(--space-deep) 100%);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.5s ease;
+        }
+        .prologue-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .prologue-overlay.fading {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .prologue-content {
+            text-align: center;
+            max-width: 600px;
+            padding: 0 24px;
+        }
+
+        .prologue-line {
+            font-family: 'Noto Serif SC', serif;
+            font-size: clamp(20px, 4vw, 32px);
+            font-weight: 400;
+            line-height: 2.2;
+            color: var(--text-primary);
+            opacity: 0;
+            transform: translateY(16px);
+            letter-spacing: 0.08em;
+            margin: 0;
+        }
+        .prologue-line.visible {
+            animation: prologueLineAppear 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .prologue-line.fading {
+            animation: prologueLineFade 1.5s ease forwards;
+        }
+
+        .prologue-line-final {
+            font-size: clamp(22px, 4.5vw, 36px);
+            font-weight: 600;
+            color: var(--gold-bright);
+            text-shadow: 0 0 20px rgba(255, 216, 155, 0.4), 0 0 40px rgba(244, 184, 96, 0.2);
+            margin-top: 0.5em;
+        }
+
+        .prologue-skip {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            background: none;
+            border: 1px solid rgba(255,255,255,0.15);
+            color: var(--text-light);
+            font-size: 13px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.6s ease, border-color 0.3s ease, color 0.3s ease;
+            font-family: 'Noto Sans SC', sans-serif;
+            letter-spacing: 0.05em;
+        }
+        .prologue-overlay.active .prologue-skip {
+            opacity: 0.6;
+        }
+        .prologue-skip:hover {
+            opacity: 1;
+            border-color: rgba(255,255,255,0.3);
+            color: var(--text-secondary);
+        }
+
+        /* ===== 彩蛋1：星空涟漪 ===== */
+        .starfield-ripple {
+            position: fixed;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(232, 197, 160, 0.5);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 996;
+            animation: starfieldRipple 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .ripple-spark {
+            position: fixed;
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: rgba(255, 216, 155, 0.9);
+            box-shadow: 0 0 10px rgba(232, 197, 160, 0.8);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 996;
+            animation: rippleSparkFade 1.5s ease-out forwards;
+        }
+
+        /* ===== 彩蛋2：流星许愿 ===== */
+        .shooting-star.meteor-glow {
+            filter: brightness(1.5) drop-shadow(0 0 6px rgba(255, 216, 155, 0.6));
+        }
+        .meteor-wish-particle {
+            position: fixed;
+            width: 4px; height: 4px;
+            border-radius: 50%;
+            background: rgba(255, 216, 155, 0.9);
+            box-shadow: 0 0 8px rgba(232, 197, 160, 0.7);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 996;
+        }
+        .meteor-wish-text {
+            position: fixed;
+            transform: translate(-50%, -100%);
+            font-family: 'Noto Serif SC', serif;
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--gold-bright);
+            text-shadow: 0 0 12px rgba(255, 216, 155, 0.5), 0 0 24px rgba(244, 184, 96, 0.2);
+            white-space: nowrap;
+            letter-spacing: 0.06em;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 996;
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        .meteor-wish-text.show {
+            opacity: 1;
+            transform: translate(-50%, -120%);
+        }
+        .meteor-wish-text.fade {
+            opacity: 0;
+            transform: translate(-50%, -140%);
+        }
+
+        /* ===== 彩蛋3：长按浮现寄语 ===== */
+        .hold-quote-text {
+            position: fixed;
+            transform: translate(-50%, -50%) scale(0.9);
+            max-width: 320px;
+            text-align: center;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.8;
+            color: var(--text-primary);
+            text-shadow: 0 0 16px rgba(232, 197, 160, 0.3), 0 0 32px rgba(5, 6, 20, 0.8);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 996;
+            transition: opacity 1.2s ease, transform 1.2s ease;
+        }
+        .hold-quote-text.show {
+            opacity: 1;
+            transform: translate(-50%, -60%) scale(1);
+        }
+        .hold-quote-text.fade {
+            opacity: 0;
+            transform: translate(-50%, -70%) scale(0.95);
+        }
+
+        /* ===== 自定义鼠标光标 ===== */
+        .custom-cursor {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 216, 155, 0.6);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+            box-shadow: 0 0 8px rgba(255, 216, 155, 0.4);
+        }
+        .custom-cursor.hover {
+            width: 12px;
+            height: 12px;
+            box-shadow: 0 0 12px rgba(255, 216, 155, 0.6);
+        }
+
+        /* 拖尾粒子 */
+        .cursor-trail {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: rgba(255, 216, 155, 0.6);
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            animation: cursorTrailFade 0.5s ease-out forwards;
+        }
+        @keyframes cursorTrailFade {
+            from {
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.3);
+            }
+        }
+
+        /* 自定义光标启用时，输入框恢复默认光标 */
+        input, textarea {
+            cursor: text;
+        }
+
+        /* ===== 宇宙诞生加载动画 ===== */
+        .loader-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: var(--space-deep);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .loader-overlay.fade-out {
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            pointer-events: none;
+        }
+
+        /* 中心光点 */
+        .loader-core {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow:
+                0 0 12px rgba(255, 255, 255, 0.9),
+                0 0 24px rgba(255, 216, 155, 0.7),
+                0 0 48px rgba(232, 197, 160, 0.5),
+                0 0 80px rgba(244, 184, 96, 0.3);
+            opacity: 0;
+            animation: loaderCoreExpand 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* 粒子 */
+        .loader-particle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: var(--gold-bright);
+            box-shadow: 0 0 6px rgba(232, 197, 160, 0.8);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        /* 旋转圆环 */
+        .loader-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 180px;
+            height: 180px;
+            border: 1px solid rgba(232, 197, 160, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loader-ring.visible {
+            animation: loaderRingExpand 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* 光点放大动画 */
+        @keyframes loaderCoreExpand {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            40% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(2);
+            }
+        }
+
+        /* 圆环展开旋转动画 */
+        @keyframes loaderRingExpand {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0) rotate(0deg);
+            }
+            60% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1) rotate(180deg);
+            }
+        }
+

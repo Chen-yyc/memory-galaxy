@@ -1,0 +1,41 @@
+/* variables.css - 记忆星系 */
+
+        :root {
+            /* 深空背景 */
+            --space-deep: #050614;
+            --space-blue: #0a0e27;
+            --space-purple: #160f2e;
+            --space-mid: #0d0a22;
+
+            /* 暖金星光 */
+            --gold: #E8C5A0;
+            --gold-bright: #FFD89B;
+            --gold-glow: #F4B860;
+            --amber: #D4A574;
+
+            /* 行星色 */
+            --planet-memorial: #E8B86D;
+            --planet-create: #C5CCE0;
+            --planet-chat: #7BA7D9;
+            --planet-story: #B59AD9;
+            --planet-wish: #7DD3C0;
+            --planet-family: #E0A5B5;
+
+            /* 文字 */
+            --text-primary: #EDE8F5;
+            --text-secondary: #B8B0C8;
+            --text-light: #8A80A0;
+
+            /* 玻璃 */
+            --glass-bg: rgba(18, 16, 42, 0.55);
+            --glass-bg-strong: rgba(16, 14, 38, 0.72);
+            --glass-border: rgba(232, 197, 160, 0.16);
+            --border: rgba(255, 255, 255, 0.1);
+            --shadow: rgba(0, 0, 0, 0.35);
+            --shadow-hover: rgba(0, 0, 0, 0.5);
+
+            --primary: #C4B5D4;
+            --primary-light: #D8CCE8;
+            --primary-dark: #9B8AAD;
+            --accent: #A8C4D4;
+        }

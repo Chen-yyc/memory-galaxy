@@ -1,0 +1,171 @@
+/* responsive.css - 记忆星系 */
+
+        @media (max-width: 600px) {
+            .wish-galaxy-scene { width: 95vmin; height: 95vmin; }
+            .wish-central-star { width: 60px; height: 60px; }
+            .wish-planet.pending { width: 28px; height: 28px; }
+            .wish-planet.claimed { width: 34px; height: 34px; }
+            .wish-planet.completed { width: 44px; height: 44px; }
+            .galaxy-thumb-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+            .galaxy-thumb-card { padding: 20px 14px 16px; }
+            .galaxy-thumb-preview { width: 100px; height: 100px; }
+        }
+
+        /* ===== 家族共享 ===== */
+        @media (max-width: 900px) {
+            .memorial-grid { grid-template-columns: 1fr; }
+            .memorial-list { grid-template-columns: 1fr 1fr; }
+            /* 窄屏隐藏星系装饰和日历，避免干扰 */
+            .galaxy-deco { display: none; }
+            .star-calendar { display: none; }
+        }
+        @media (max-width: 768px) {
+            .navbar { padding: 0 18px; }
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 64px; right: 0;
+                flex-direction: column;
+                background: var(--glass-bg-strong);
+                border: 1px solid var(--glass-border);
+                border-radius: 0 0 0 16px;
+                padding: 14px;
+                gap: 4px;
+                min-width: 160px;
+            }
+            @supports (backdrop-filter: blur(22px)) {
+                .nav-menu {
+                    backdrop-filter: blur(22px);
+                    -webkit-backdrop-filter: blur(22px);
+                }
+            }
+            @supports not (backdrop-filter: blur(22px)) {
+                .nav-menu {
+                    background: rgba(16, 14, 38, 0.92);
+                }
+            }
+            .nav-menu.open { display: flex; }
+            .nav-toggle { display: block; }
+            .galaxy-view { padding: 76px 16px 24px; }
+            .galaxy-intro h1 { letter-spacing: 4px; }
+            .galaxy-intro p { font-size: 13px; }
+            .galaxy-scene { width: min(520px, 92vmin); height: min(520px, 92vmin); --orbit-1-size: 34%; --orbit-2-size: 64%; --orbit-3-size: 94%; }
+            .planet { gap: 8px; }
+            .planet-body { width: 46px; height: 46px; font-size: 20px; }
+            .planet-label { font-size: 11px; letter-spacing: 1px; }
+            .core-body { width: 72px; height: 72px; font-size: 28px; }
+            .core-label { font-size: 13px; letter-spacing: 3px; }
+            .back-to-galaxy { top: 76px; left: 14px; padding: 8px 14px; font-size: 13px; }
+            .sub-section { padding: 84px 18px 40px; }
+            .glass-card { padding: 20px; }
+            .memorial-header { flex-direction: column; align-items: center; text-align: center; }
+            .memorial-photo { width: 140px; height: 140px; }
+            .memorial-list { grid-template-columns: 1fr; }
+            .memorial-detail-toolbar { flex-direction: column; }
+            .form-row { flex-direction: column; }
+            .chat-section { padding: 84px 16px 28px; }
+            .galaxy-actions { flex-wrap: wrap; }
+            .btn { padding: 12px 22px; font-size: 13px; }
+        }
+        @media (max-width: 480px) {
+            .galaxy-scene { width: 100vmin; height: 100vmin; --orbit-1-size: 30%; --orbit-2-size: 62%; --orbit-3-size: 94%; }
+            .planet { gap: 6px; }
+            .planet-body { width: 40px; height: 40px; font-size: 17px; }
+            .planet-label { font-size: 10px; }
+            .core-body { width: 60px; height: 60px; font-size: 22px; }
+        }
+
+        /* 滚动条样式统一在 base.css 中定义，此处不再重复 */
+        ::selection { background: rgba(232,197,160,0.25); color: var(--text-primary); }
+        ::-moz-selection { background: rgba(232,197,160,0.25); color: var(--text-primary); }
+
+        /* ===== 许愿长按仪式 ===== */
+        @media print {
+            .navbar, .back-to-galaxy, .starfield, .nebula, .shooting-star,
+            .nav-toggle, .galaxy-actions, .chat-input-area, .data-actions { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .glass-card, .memorial-card, .wish-card { background: white !important; border: 1px solid #ccc !important; box-shadow: none !important; backdrop-filter: none !important; }
+            .page { display: block !important; opacity: 1 !important; transform: none !important; }
+        }
+
+        /* ===== 每日寄语 ===== */
+        /* ===== 减弱动画偏好适配（增强版） ===== */
+        @media (prefers-reduced-motion: reduce) {
+            .text-shimmer { animation: none; -webkit-text-fill-color: var(--text-primary); }
+            .wish-card { animation: none; }
+            .planet:hover .planet-body { animation: none; }
+            [data-aos] { opacity: 1; transform: none; }
+            /* 序言动画加速：文字几乎瞬时显示，减少等待 */
+            .prologue-line.visible { animation-duration: 0.3s !important; }
+            .prologue-line.fading { animation-duration: 0.3s !important; }
+            .prologue-overlay { transition-duration: 0.4s !important; }
+        }
+/* ===== 从各模块提取的 @media 响应式适配 ===== */
+
+@media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .starfield, .nebula, .shooting-star { animation: none !important; }
+            .orbit, .planet, .sat-spinner { animation: none !important; }
+        }
+
+@media (max-width: 768px) {
+            .wish-planet.completed.released { width: 30px; height: 30px; }
+        }
+
+@media (max-width: 768px) {
+            .family-tabs { flex-wrap: wrap; }
+            .family-tab { font-size: 13px; padding: 8px 12px; }
+            .festival-banner { font-size: 12px; padding: 8px 18px; }
+        }
+
+/* ===== 移动端 backdrop-filter 性能降级 ===== */
+/* 移动端 GPU 合成能力有限，大量 backdrop-filter: blur() 会导致严重卡顿。
+   降级策略：用半透明纯色背景替代模糊效果，保持视觉层次同时大幅提升性能。 */
+@media (max-width: 768px) {
+    .glass-card,
+    .memorial-card,
+    .memorial-list-card,
+    .message.ai,
+    .custom-modal,
+    .wish-gratitude-card,
+    .star-calendar,
+    .orbit-drawer-overlay,
+    .galaxy-thumb-card,
+    .wish-card,
+    .orbit-chapter-card,
+    .family-tab,
+    .ai-settings-panel,
+    .chat-input-area {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+    /* 导航栏保留轻微模糊（仅一处，影响可控） */
+    .navbar {
+        backdrop-filter: blur(6px) !important;
+        -webkit-backdrop-filter: blur(6px) !important;
+    }
+}
+
+@media (max-width: 600px) {
+            .orbit-scene { max-width: 100%; }
+            .orbit-center-star .star-core { width: 44px; height: 44px; }
+            .orbit-point.chapter { width: 18px; height: 18px; }
+            .orbit-point.fragment { width: 10px; height: 10px; }
+            .orbit-drawer { max-height: 85vh; }
+            .orbit-detail-card { padding: 24px 20px; }
+        }
+
+@media (max-width: 768px) {
+            .memory-wall-grid { columns: 2; }
+        }
+
+@media (max-width: 480px) {
+            .memory-wall-grid { columns: 1; }
+            .memory-card-delete { opacity: 1; }
+        }
+
